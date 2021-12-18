@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
         currentIndex: _selectedIndex,
         onTap: (newIndex) {
           setState(() {

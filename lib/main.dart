@@ -1,25 +1,16 @@
-import 'package:flutter/material.dart';
-import 'home.dart';
+import "package:flutter/material.dart";
+import 'package:student_log/home.dart';
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:false,
-      darkTheme: ThemeData.dark(),
-      home: const Home(),
+      debugShowCheckedModeBanner: false,
+      home: Home(),
     );
-    
   }
 }
