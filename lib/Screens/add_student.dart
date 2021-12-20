@@ -30,7 +30,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
         /////////////////////////////-----------body------////////////////////
         body: Center(
           child: Container(
-            height: 500,
+            height: 400,
             width: 350,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -114,19 +114,29 @@ class _AddNewStudentState extends State<AddNewStudent> {
                       height: 20,
                     ),
                     Container(
-                      width: 100,
-                      color: Colors.black12,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.photo_camera_back_outlined),
+                      width: 130,
+                      color: Colors.teal[200],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Add Image",
+                                style: TextStyle(color: Colors.black),
+                              )),
+                          Icon(Icons.add_photo_alternate)
+                        ],
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
+
+                    /// -- save button -- ///
                     TextButton(
-                        style:
-                            TextButton.styleFrom(backgroundColor: Colors.black),
+                        style: TextButton.styleFrom(
+                            backgroundColor: Colors.teal[500]),
                         onPressed: () {},
                         child: Text(
                           "save",
