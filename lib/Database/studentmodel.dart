@@ -4,13 +4,13 @@ part 'studentmodel.g.dart';
 @HiveType(typeId: 1)
 class Student extends HiveObject {
   @HiveField(0)
-  String name;
+  dynamic name;
 
   @HiveField(1)
-  int age;
+  dynamic age;
 
   @HiveField(2)
-  int phone;
+  dynamic phone;
 
   @HiveField(3)
   dynamic imagepath;
@@ -19,6 +19,6 @@ class Student extends HiveObject {
     required this.name,
     required this.age,
     required this.phone,
-    this.imagepath,
+    required this.imagepath,
   });
 }

@@ -17,9 +17,9 @@ class StudentAdapter extends TypeAdapter<Student> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Student(
-      name: fields[0] as String,
-      age: fields[1] as int,
-      phone: fields[2] as int,
+      name: fields[0] as dynamic,
+      age: fields[1] as dynamic,
+      phone: fields[2] as dynamic,
       imagepath: fields[3] as dynamic,
     );
   }
