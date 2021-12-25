@@ -39,7 +39,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
           backgroundColor: Colors.white,
         ),
 
-        /////////////////////////////-----------body------////////////////////
+       
         body: Center(
           child: Container(
             height: 400,
@@ -167,7 +167,6 @@ class _AddNewStudentState extends State<AddNewStudent> {
                           height: 10,
                         ),
 
-                        /// -- save button -- ///
                         TextButton(
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.teal[500]),

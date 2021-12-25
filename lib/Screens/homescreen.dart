@@ -19,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Text("Students", style: TextStyle(color: Colors.black)),
+          title: const Text("Students List",
+              style: TextStyle(color: Colors.black)),
           centerTitle: true,
         ),
         body: Column(
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (box.values.isEmpty) {
                     return Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 200),
+                        padding: const EdgeInsets.only(top: 50),
                         child: Text(
                           "No data available",
                           style: TextStyle(
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       return Padding(
                         padding:
-                            const EdgeInsets.only(left: 30, top: 8, right: 30),
+                            const EdgeInsets.only(left: 30, top: 15, right: 30),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -99,7 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (ctx) => StudentsDetailsPage(obj)));
+                                      builder: (ctx) =>
+                                          StudentsDetailsPage(obj)));
                             },
                             title: Text(
                               obj.name,
@@ -128,6 +130,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             trailing: IconButton(
                                 onPressed: () {
                                   box.deleteAt(index);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text("Deleted Successfully")));
                                 },
                                 icon: Icon(
                                   Icons.delete_outline_rounded,
