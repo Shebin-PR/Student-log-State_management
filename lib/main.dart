@@ -1,15 +1,16 @@
-import "package:flutter/material.dart";
-import 'package:hive_flutter/hive_flutter.dart';
+import "package:flutter/material.dart"; 
+import 'package:hive_flutter/adapters.dart';
+import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/home.dart';
-import 'Database/studentmodel.dart';
 
+String hiveboxname = "allstudentsdetails";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(StudentAdapter().typeId)) {
     Hive.registerAdapter(StudentAdapter());
   }
-  await Hive.openBox("allstudents");
+ await Hive.openBox(hiveboxname);
   runApp(MyApp());
 }
 

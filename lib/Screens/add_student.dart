@@ -14,6 +14,8 @@ class _AddNewStudentState extends State<AddNewStudent> {
   TextEditingController mailcontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -141,7 +143,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                         child: Text(
                           "save",
                           style: TextStyle(color: Colors.white, fontSize: 18),
-                        ))
+                        )),
                   ],
                 ))
               ],
