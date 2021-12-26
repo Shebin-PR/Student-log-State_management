@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/Screens/edit_student.dart';
@@ -9,6 +11,9 @@ class StudentsDetailsPage extends StatelessWidget {
   dynamic avatar;
   @override
   Widget build(BuildContext context) {
+    if (obj.imagepath != null) {
+      avatar = base64Decode(obj.imagepath);
+    }
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -32,12 +37,15 @@ class StudentsDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 5),
                         child: Container(
                             height: 210,
+                            width: 210,
                             decoration: BoxDecoration(
                                 color: Colors.blue[900],
                                 shape: BoxShape.circle),
                             child: ClipOval(
-                                child:
-                                    Image.asset("assets/images/avatar.png"))),
+                                child: Image.memory(
+                              avatar,
+                              fit: BoxFit.cover,
+                            ))),
                       )
                     : Padding(
                         padding: EdgeInsets.only(top: 5),
