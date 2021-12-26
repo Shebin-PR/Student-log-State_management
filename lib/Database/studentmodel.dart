@@ -19,6 +19,6 @@ class Student extends HiveObject {
     required this.name,
     required this.age,
     required this.phone,
-    required this.imagepath,
+    this.imagepath,
   });
 }

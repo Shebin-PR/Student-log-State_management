@@ -15,9 +15,9 @@ class AddNewStudent extends StatefulWidget {
 }
 
 class _AddNewStudentState extends State<AddNewStudent> {
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController agecontroller = TextEditingController();
-  TextEditingController phonecontroller = TextEditingController();
+  // TextEditingController namecontroller = TextEditingController();
+  // TextEditingController agecontroller = TextEditingController();
+  // TextEditingController phonecontroller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -38,8 +38,6 @@ class _AddNewStudentState extends State<AddNewStudent> {
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
-
-       
         body: Center(
           child: Container(
             height: 400,
@@ -69,7 +67,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                             onChanged: (value) => setState(() {
                               name = value;
                             }),
-                            controller: namecontroller,
+                            // controller: namecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -95,7 +93,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                             onChanged: (value) => setState(() {
                               age = value;
                             }),
-                            controller: agecontroller,
+                            // controller: agecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -121,7 +119,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                             onChanged: (value) => setState(() {
                               phone = value;
                             }),
-                            controller: phonecontroller,
+                            // controller: phonecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -166,7 +164,6 @@ class _AddNewStudentState extends State<AddNewStudent> {
                         SizedBox(
                           height: 10,
                         ),
-
                         TextButton(
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.teal[500]),
