@@ -6,6 +6,7 @@ import 'package:student_log/Screens/edit_student.dart';
 class StudentsDetailsPage extends StatelessWidget {
   StudentsDetailsPage(this.obj, {Key? key}) : super(key: key);
   Student obj;
+  dynamic avatar;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,11 +27,29 @@ class StudentsDetailsPage extends StatelessWidget {
                 BoxDecoration(border: Border.all(color: Colors.blue, width: 2)),
             child: Column(
               children: [
-                Container(
-                  height: 210,
-                  decoration: BoxDecoration(
-                      color: Colors.blue[900], shape: BoxShape.circle),
-                ),
+                obj.imagepath != null
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                                color: Colors.blue[900],
+                                shape: BoxShape.circle),
+                            child: ClipOval(
+                                child:
+                                    Image.asset("assets/images/avatar.png"))),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                                color: Colors.blue[900],
+                                shape: BoxShape.circle),
+                            child: ClipOval(
+                                child:
+                                    Image.asset("assets/images/avatar.png"))),
+                      ),
                 Divider(
                   color: Colors.blue,
                   thickness: 2,
