@@ -1,28 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/home.dart';
 
-class EditStudent extends StatefulWidget {
-  const EditStudent({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class EditStudent extends StatelessWidget {
+  EditStudent(this.obj, {Key? key}) : super(key: key);
+  Student obj;
 
-  @override
-  _EditStudentState createState() => _EditStudentState();
-}
-
-class _EditStudentState extends State<EditStudent> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () async {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
           title: Text(
             "Edit Student",
             style: TextStyle(color: Colors.black),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ))
+          ],
           centerTitle: true,
           backgroundColor: Colors.teal[100],
         ),
-
-       
         body: Center(
           child: Container(
             height: 400,
@@ -51,7 +64,7 @@ class _EditStudentState extends State<EditStudent> {
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                             label: Text(
-                              "Name",
+                              obj.name,
                               style: TextStyle(color: Colors.black),
                             ),
                             border: OutlineInputBorder(
@@ -73,7 +86,7 @@ class _EditStudentState extends State<EditStudent> {
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                             label: Text(
-                              "Age",
+                              obj.age,
                               style: TextStyle(color: Colors.black),
                             ),
                             border: OutlineInputBorder(
@@ -95,18 +108,16 @@ class _EditStudentState extends State<EditStudent> {
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                             label: Text(
-                              "Phone",
+                              obj.phone,
                               style: TextStyle(color: Colors.black),
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5))),
                       ),
                     ),
-
                     SizedBox(
                       height: 10,
                     ),
-
                     TextButton(
                         style: TextButton.styleFrom(
                             backgroundColor: Colors.teal[500]),

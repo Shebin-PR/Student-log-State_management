@@ -24,6 +24,7 @@ class StudentsDetailsPage extends StatelessWidget {
             "Profile",
             style: TextStyle(color: Colors.blue),
           ),
+         
         ),
         body: Center(
           child: Container(
@@ -130,7 +131,7 @@ class StudentsDetailsPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditStudent()));
+                              builder: (context) =>new EditStudent(obj)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
