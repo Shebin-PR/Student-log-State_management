@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/home.dart';
@@ -35,14 +36,6 @@ class _EditStudentState extends State<EditStudent> {
             "Edit Student",
             style: TextStyle(color: Colors.black),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                ))
-          ],
           centerTitle: true,
           backgroundColor: Colors.teal[100],
         ),
@@ -153,10 +146,7 @@ class _EditStudentState extends State<EditStudent> {
                                         content: Text(
                                             "Student Updated successfully")));
                               }
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
+                              Get.to(Home());
                             },
                             child: Text(
                               "save",

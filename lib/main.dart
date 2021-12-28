@@ -1,4 +1,5 @@
-import "package:flutter/material.dart"; 
+import "package:flutter/material.dart";
+import 'package:get/get_navigation/get_navigation.dart'; 
 import 'package:hive_flutter/adapters.dart';
 import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/home.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
     );

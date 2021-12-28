@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/Screens/detailpage.dart';
@@ -13,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String searchtext = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,6 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
+                    onChanged: (value) => setState(() {
+                      searchtext = value;
+                      print(searchtext);
+                    }),
                     decoration: InputDecoration(
                         label: Text(
                           "Search",
@@ -97,11 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: ListTile(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) =>
-                                          StudentsDetailsPage(obj)));
+                              Get.to(StudentsDetailsPage(obj));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (ctx) =>
+                              //             StudentsDetailsPage(obj)));
                             },
                             title: Text(
                               obj.name,

@@ -1,31 +1,28 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_log/Database/studentmodel.dart';
+import 'package:student_log/GetX/studentcontroller.dart';
 import 'package:student_log/home.dart';
-import 'package:student_log/main.dart';
 
-class AddNewStudent extends StatefulWidget {
-  const AddNewStudent({Key? key}) : super(key: key);
-
-  @override
-  _AddNewStudentState createState() => _AddNewStudentState();
-}
-
-class _AddNewStudentState extends State<AddNewStudent> {
-  // TextEditingController namecontroller = TextEditingController();
-  // TextEditingController agecontroller = TextEditingController();
-  // TextEditingController phonecontroller = TextEditingController();
+// ignore: must_be_immutable
+class AddNewStudent extends StatelessWidget {
+  AddNewStudent({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+
+  StudentController controller = Get.put(StudentController());
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController agecontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
 
   String name = "";
   String age = "";
   String phone = "";
   String avatarimage = "";
   dynamic picture;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,10 +61,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              name = value;
-                            }),
-                            // controller: namecontroller,
+                            controller: namecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -90,10 +84,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              age = value;
-                            }),
-                            // controller: agecontroller,
+                            controller: agecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -116,10 +107,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              phone = value;
-                            }),
-                            // controller: phonecontroller,
+                            controller: phonecontroller,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
@@ -168,14 +156,14 @@ class _AddNewStudentState extends State<AddNewStudent> {
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.teal[500]),
                             onPressed: () async {
+                              name = namecontroller.text;
+                              age = agecontroller.text;
+                              phone = phonecontroller.text;
                               print('saved');
                               if (_formKey.currentState!.validate()) {
-                                Box box = Hive.box(hiveboxname);
-                                box.add(Student(
-                                    name: name,
-                                    age: age,
-                                    phone: phone,
-                                    imagepath: picture));
+                                controller.addnewstudent(
+                                    name, age, phone, picture);
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text(
@@ -185,10 +173,7 @@ class _AddNewStudentState extends State<AddNewStudent> {
                                     SnackBar(
                                         content: Text("Student not added")));
                               }
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
+                              Get.to(Home());
                             },
                             child: Text(
                               "save",
