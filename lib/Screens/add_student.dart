@@ -173,7 +173,7 @@ class AddNewStudent extends StatelessWidget {
                                     SnackBar(
                                         content: Text("Student not added")));
                               }
-                              Get.to(Home());
+                              Get.to(() => Home());
                             },
                             child: Text(
                               "save",

@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:student_log/Database/studentmodel.dart';
+import 'package:student_log/GetX/studentcontroller.dart';
 import 'package:student_log/home.dart';
 import 'package:student_log/main.dart';
 
 // ignore: must_be_immutable
-class EditStudent extends StatefulWidget {
+class EditStudent extends StatelessWidget {
   EditStudent(this.obj, {Key? key}) : super(key: key);
   Student obj;
 
-  @override
-  State<EditStudent> createState() => _EditStudentState();
-}
+  final controller = Get.find<StudentController>();
 
-class _EditStudentState extends State<EditStudent> {
-  // TextEditingController newnamecontroller = TextEditingController();
   final _newformKey = GlobalKey<FormState>();
 
   @override
@@ -65,13 +62,15 @@ class _EditStudentState extends State<EditStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              widget.obj.name = value;
-                            }),
+                            onChanged: (value) {
+                              obj.name = value;
+                              obj.save();
+                              controller.update();
+                            },
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
-                                  widget.obj.name,
+                                  obj.name,
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 border: OutlineInputBorder(
@@ -90,13 +89,15 @@ class _EditStudentState extends State<EditStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              widget.obj.age = value;
-                            }),
+                            onChanged: (value) => {
+                              obj.age = value,
+                              obj.save(),
+                              controller.update()
+                            },
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
-                                  widget.obj.age,
+                                  obj.age,
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 border: OutlineInputBorder(
@@ -115,13 +116,15 @@ class _EditStudentState extends State<EditStudent> {
                                 return "required";
                               }
                             },
-                            onChanged: (value) => setState(() {
-                              widget.obj.phone = value;
-                            }),
+                            onChanged: (value) => {
+                              obj.phone = value,
+                              obj.save(),
+                              controller.update()
+                            },
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
-                                  widget.obj.phone,
+                                  obj.phone,
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 border: OutlineInputBorder(
@@ -138,15 +141,15 @@ class _EditStudentState extends State<EditStudent> {
                               if (_newformKey.currentState!.validate()) {
                                 Box box = Hive.box(hiveboxname);
                                 box.add(Student(
-                                    name: widget.obj.name,
-                                    age: widget.obj.age,
-                                    phone: widget.obj.phone));
+                                    name: obj.name,
+                                    age: obj.age,
+                                    phone: obj.phone));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text(
                                             "Student Updated successfully")));
                               }
-                              Get.to(Home());
+                              Get.to(() => Home());
                             },
                             child: Text(
                               "save",

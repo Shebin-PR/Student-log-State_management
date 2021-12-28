@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:student_log/Database/studentmodel.dart';
 import 'package:student_log/Screens/edit_student.dart';
 
@@ -24,7 +25,6 @@ class StudentsDetailsPage extends StatelessWidget {
             "Profile",
             style: TextStyle(color: Colors.blue),
           ),
-         
         ),
         body: Center(
           child: Container(
@@ -128,10 +128,7 @@ class StudentsDetailsPage extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>new EditStudent(obj)));
+                      Get.to(() => EditStudent(obj));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

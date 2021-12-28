@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student_log/Database/studentmodel.dart';
+import 'package:student_log/GetX/studentcontroller.dart';
 import 'package:student_log/Screens/detailpage.dart';
 import 'package:student_log/main.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class HomeScreen extends StatelessWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   String searchtext = "";
 
   @override
@@ -28,32 +25,39 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    onChanged: (value) => setState(() {
-                      searchtext = value;
-                      print(searchtext);
-                    }),
-                    decoration: InputDecoration(
-                        label: Text(
-                          "Search",
-                          style: TextStyle(color: Colors.blue, fontSize: 20),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5))),
+            GetBuilder<StudentController>(builder: (controller) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: TextFormField(
+                      style: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 0.8,
+                          fontSize: 16),
+                      onChanged: (value) {
+                        searchtext = value;
+                        print(searchtext);
+                        controller.searchstudents();
+                      },
+                      decoration: InputDecoration(
+                          label: Text(
+                            "Search",
+                            style: TextStyle(color: Colors.blue, fontSize: 20),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5))),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
               child: Divider(
@@ -104,12 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: ListTile(
                             onTap: () {
-                              Get.to(StudentsDetailsPage(obj));
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (ctx) =>
-                              //             StudentsDetailsPage(obj)));
+                              Get.to(() => StudentsDetailsPage(obj));
                             },
                             title: Text(
                               obj.name,
