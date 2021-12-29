@@ -74,7 +74,7 @@ class StudentsDetailsPage extends StatelessWidget {
                         style: textdecoration(),
                       ),
                       Text(
-                        obj.name,
+                        obj.name!,
                         style: textdecoration(),
                       ),
                     ],

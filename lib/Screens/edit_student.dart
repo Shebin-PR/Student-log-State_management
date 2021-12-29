@@ -70,7 +70,7 @@ class EditStudent extends StatelessWidget {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 label: Text(
-                                  obj.name,
+                                  obj.name!,
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 border: OutlineInputBorder(

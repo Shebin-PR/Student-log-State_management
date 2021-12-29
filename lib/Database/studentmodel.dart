@@ -4,7 +4,7 @@ part 'studentmodel.g.dart';
 @HiveType(typeId: 1)
 class Student extends HiveObject {
   @HiveField(0)
-  dynamic name;
+  String? name;
 
   @HiveField(1)
   dynamic age;

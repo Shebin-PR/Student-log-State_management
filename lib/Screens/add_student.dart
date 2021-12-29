@@ -12,7 +12,6 @@ class AddNewStudent extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  StudentController controller = Get.put(StudentController());
   TextEditingController namecontroller = TextEditingController();
   TextEditingController agecontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
@@ -152,34 +151,40 @@ class AddNewStudent extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: Colors.teal[500]),
-                            onPressed: () async {
-                              name = namecontroller.text;
-                              age = agecontroller.text;
-                              phone = phonecontroller.text;
-                              print('saved');
-                              if (_formKey.currentState!.validate()) {
-                                controller.addnewstudent(
-                                    name, age, phone, picture);
+                        GetBuilder<StudentController>(builder: (controll) {
+                          return TextButton(
+                              style: TextButton.styleFrom(
+                                  backgroundColor: Colors.teal[500]),
+                              onPressed: () {
+                                name = namecontroller.text;
+                                age = agecontroller.text;
+                                phone = phonecontroller.text;
+                                print('saved');
+                                if (_formKey.currentState!.validate()) {
+                                  controll.addnewstudent(
+                                      name, age, phone, picture);
 
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            "Student Added successfully")));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text("Student not added")));
-                              }
-                              Get.to(() => Home());
-                            },
-                            child: Text(
-                              "save",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            )),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "Student Added successfully")));
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text("Student not added")));
+                                }
+                                controll.selectedInddex = 0;
+                                controll.update(["2"]);
+                                namecontroller.clear();
+                                agecontroller.clear();
+                                phonecontroller.clear();
+                              },
+                              child: Text(
+                                "save",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ));
+                        }),
                       ],
                     ))
               ],

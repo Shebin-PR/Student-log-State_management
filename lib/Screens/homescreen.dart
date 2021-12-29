@@ -25,39 +25,42 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            GetBuilder<StudentController>(builder: (controller) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: TextFormField(
-                      style: TextStyle(
+            GetBuilder<StudentController>(
+              builder: (controller) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: TextFormField(
+                        style: TextStyle(
                           color: Colors.white,
                           letterSpacing: 0.8,
-                          fontSize: 16),
-                      onChanged: (value) {
-                        searchtext = value;
-                        print(searchtext);
-                        controller.searchstudents();
-                      },
-                      decoration: InputDecoration(
-                          label: Text(
-                            "Search",
-                            style: TextStyle(color: Colors.blue, fontSize: 20),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5))),
+                          fontSize: 16,
+                        ),
+                        onChanged: (value) {
+                          searchtext = value;
+                          controller.update(["1"]);
+                        },
+                        decoration: InputDecoration(
+                            label: Text(
+                              "Search",
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 20),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5))),
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              },
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 30, right: 30),
               child: Divider(
@@ -66,10 +69,17 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box(hiveboxname).listenable(),
-                builder: (BuildContext context, Box box, Widget? _) {
-                  if (box.values.isEmpty) {
+              child: GetBuilder<StudentController>(
+                id: "1",
+                builder: (_controller) {
+                  List<Student> results = searchtext.isEmpty
+                      ? _controller.allstudentscontroller.values.toList()
+                      : _controller.allstudentscontroller.values
+                          .where((element) => element.name!
+                              .toLowerCase()
+                              .contains(searchtext.toLowerCase()))
+                          .toList();
+                  if (results.isEmpty) {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 50),
@@ -84,12 +94,11 @@ class HomeScreen extends StatelessWidget {
                     );
                   }
                   return ListView.builder(
-                    itemCount: box.values.length,
+                    itemCount: results.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Student obj = box.getAt(index);
                       dynamic avatar;
-                      if (obj.imagepath != null) {
-                        avatar = base64Decode(obj.imagepath);
+                      if (results[index].imagepath != null) {
+                        avatar = base64Decode(results[index].imagepath);
                       }
                       return Padding(
                         padding:
@@ -108,13 +117,13 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: ListTile(
                             onTap: () {
-                              Get.to(() => StudentsDetailsPage(obj));
+                              Get.to(() => StudentsDetailsPage(results[index]));
                             },
                             title: Text(
-                              obj.name,
+                              results[index].name!,
                               style: TextStyle(fontSize: 18),
                             ),
-                            leading: obj.imagepath == null
+                            leading: results[index].imagepath == null
                                 ? ClipOval(
                                     child: Image.asset(
                                     "assets/images/avatar.png",
@@ -135,12 +144,14 @@ class HomeScreen extends StatelessWidget {
                                           height: 70,
                                         )))),
                             trailing: IconButton(
-                                onPressed: () {
-                                  box.deleteAt(index);
+                                onPressed: () async {
+                                  await _controller.allstudentscontroller
+                                      .delete(results[index].key);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content:
                                               Text("Deleted Successfully")));
+                                  _controller.update(["1"]);
                                 },
                                 icon: Icon(
                                   Icons.delete_outline_rounded,
